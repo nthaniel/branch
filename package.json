@@ -1,0 +1,14 @@
+{
+  "name": "branch",
+  "version": "1.0.0",
+  "description": "just for kicks",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "nthaniel",
+  "license": "ISC",
+  "dependencies": {
+    "svgjs": "^2.2.5"
+  }
+}
