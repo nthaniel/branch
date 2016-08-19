@@ -18,11 +18,11 @@ var initializeVars = () => {
   width = window.innerWidth - 16;
   height = window.innerHeight - 20;
   startlength = squareDimension = 100;
-  angle = 460 / (Math.random() * 10);
+  angle = 2 * Math.PI * Math.random();//460 / (Math.random() * 10);
   linelength = 50; //Math.sqrt(2 * Math.pow(startlength, 2));
   squareWait = 1;
   wait = 40;
-  color = '#d0d0d0';
+  color = '#bdbdbd';
   timeouts = [];
   roots = [];
   branches = [];
@@ -30,7 +30,10 @@ var initializeVars = () => {
 };
 
 initializeVars();
-console.log('the angle of this fractal is:', angle, 'radians');
+console.log(
+  `Refresh or resize the page to see more fractals!\n
+Inspired by Stan Allen's 'First 2500 iterations of an infinite series of plan variations'.\n
+Icons made by Yannick, Dave Gandy, and Elegant Themes from www.flaticon.com`);
 
 var draw = SVG('root').size(width, height);
 
@@ -55,6 +58,7 @@ var midpoint = function(line) {
   var x2 = line.attr('x2');
   var y1 = line.attr('y1');
   var y2 = line.attr('y2');
+
   return [(x1 + x2) / 2, (y1 + y2) / 2];
 };
 
@@ -82,7 +86,6 @@ var endpoint = function([x1, y1], generation = 1) {
 
 
 // for creating root line of each fractal
-
 var drawRoot = ([xStart, yStart]) => {
   let root = draw.line()
     .plot([[25 + Math.random() * squareDimension / 2 + xStart, (yStart + squareDimension)],
@@ -94,7 +97,6 @@ var drawRoot = ([xStart, yStart]) => {
 
 
 // for creating fractals recursively
-
 var branch = function(line, generation = 1, brokenness = 0) {
   if (generation > 10) return;
   var mid = randpoint(line, brokenness);
@@ -109,19 +111,19 @@ var branch = function(line, generation = 1, brokenness = 0) {
 // for figuring out how many squares to draw
 function calculateSquares() {
   let xMax = Math.floor(width / squareDimension);
-  let xPad = (width % (xMax * squareDimension)) / xMax;
+  let xPad = (width % (xMax * squareDimension)) / (xMax - 1);
 
   while (xPad < 8) {
     xMax--;
-    xPad = (width % (xMax * squareDimension)) / xMax;
+    xPad = (width % (xMax * squareDimension)) / (xMax - 1);
   }
 
   let yMax = Math.floor(height / squareDimension);
-  let yPad = (height % (yMax * squareDimension)) / yMax;
+  let yPad = (height % (yMax * squareDimension)) / (yMax - 1);
 
   while (yPad < 8) {
     yMax--;
-    yPad = (height % (yMax * squareDimension)) / yMax;
+    yPad = (height % (yMax * squareDimension)) / (yMax - 1);
   }
 
   return [xMax, xPad, yMax, yPad];
@@ -138,7 +140,7 @@ var drawSquares = ([numCols, xPad, numRows, yPad] = calculateSquares()) => {
         .stroke({width: 0.8, color})
         .fill('white')
         .attr({
-          "x": (squareDimension + xPad) * x + 8,
+          "x": (squareDimension + xPad) * x,
           "y": (squareDimension + yPad) * y
         })
         .back();
