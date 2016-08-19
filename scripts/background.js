@@ -214,4 +214,11 @@ init();
 
 SVG.on(window, 'resize', function() { stop(); debouncedInit(); });
 
+document.body.onkeyup = (e) => {
+  if(e.keyCode === 32){
+    stop();
+    debouncedInit();
+  }
+};
+
 })();
