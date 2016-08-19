@@ -18,8 +18,8 @@ var initializeVars = () => {
   width = window.innerWidth - 16;
   height = window.innerHeight - 16;
   startlength = squareDimension = 100;
-  angle = 2 * Math.PI * Math.random();//460 / (Math.random() * 10);
-  linelength = 50; //Math.sqrt(2 * Math.pow(startlength, 2));
+  angle = 2 * Math.PI * Math.random();
+  linelength = squareDimension / 2;
   squareWait = 1;
   wait = 40;
   color = '#bdbdbd';
@@ -34,8 +34,6 @@ console.log(
   `Refresh or resize the page to see more fractals!\n
 Inspired by Stan Allen's 'First 2500 iterations of an infinite series of plan variations'.\n
 Icons made by Yannick, Dave Gandy, and Elegant Themes from www.flaticon.com`);
-
-var draw = SVG('root').size(width, height);
 
 // iterative version of helper
 // var delayedForEach = (arr, cb, wait) => {
@@ -52,7 +50,7 @@ var delayedForEach = (arr, cb, wait, i = 0) => {
 };
 
 
-// for tight fractals
+// for tight fractals – finds exact midpoint of passed-in line
 var midpoint = function(line) {
   var x1 = line.attr('x1');
   var x2 = line.attr('x2');
@@ -63,7 +61,7 @@ var midpoint = function(line) {
 };
 
 
-// for loose fractals
+// for dissolving fractals – finds point near center of passed-in line, varying by brokenness
 var randpoint = function(line, brokenness = 0) {
   var x1 = line.attr('x1');
   var x2 = line.attr('x2');
@@ -112,6 +110,7 @@ var branch = function(line, generation = 1, brokenness = 0) {
 function calculateSquares() {
   let xMax = Math.floor(width / squareDimension);
   let xPad = (width % (xMax * squareDimension)) / (xMax - 1);
+  // divides by (xMax - 1) because if there are n squares, there are n - 1 spaces between them
 
   while (xPad < 8) {
     xMax--;
@@ -120,6 +119,7 @@ function calculateSquares() {
 
   let yMax = Math.floor(height / squareDimension);
   let yPad = (height % (yMax * squareDimension)) / (yMax);
+  // divides by (yMax) to leave some space beneath the last row
 
   while (yPad < 8) {
     yMax--;
@@ -131,7 +131,7 @@ function calculateSquares() {
 
 
 // for creating fractal frames
-  // returns an array of promises that have resolved to squares
+  // returns a promised array of promises that have resolved to squares
 var drawSquares = ([numCols, xPad, numRows, yPad] = calculateSquares()) => {
   var promises = [];
 
@@ -167,7 +167,10 @@ var drawSquares = ([numCols, xPad, numRows, yPad] = calculateSquares()) => {
     .then(promises => promises.reduce((memo, curr) => memo.concat(curr), []));
 };
 
-// for actually calling all that
+// clears out anything (i.e. old SVGs) attached to "#root"
+// (re-)initializes variables
+// creates new SVG
+// draws grid, then starts fractal recursion w/ increasing brokenness
 var init = () => {
   let rootNode = document.getElementById('root');
   while (rootNode.firstChild) {
@@ -185,6 +188,7 @@ var init = () => {
     });
 };
 
+// clears all timeouts
 var stop = () => {
   timeouts.forEach(to => window.clearTimeout(to));
 };
@@ -202,7 +206,7 @@ function debounce(func, wait, immediate) {
     timeout = setTimeout(later, wait);
     if (callNow) func.apply(context, args);
   };
-};
+}
 
 var debouncedInit = debounce(init, 150, false);
 
