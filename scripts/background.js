@@ -16,7 +16,7 @@ var draw;
 
 var initializeVars = () => {
   width = window.innerWidth - 16;
-  height = window.innerHeight - 20;
+  height = window.innerHeight - 16;
   startlength = squareDimension = 100;
   angle = 2 * Math.PI * Math.random();//460 / (Math.random() * 10);
   linelength = 50; //Math.sqrt(2 * Math.pow(startlength, 2));
@@ -119,11 +119,11 @@ function calculateSquares() {
   }
 
   let yMax = Math.floor(height / squareDimension);
-  let yPad = (height % (yMax * squareDimension)) / (yMax - 1);
+  let yPad = (height % (yMax * squareDimension)) / (yMax);
 
   while (yPad < 8) {
     yMax--;
-    yPad = (height % (yMax * squareDimension)) / (yMax - 1);
+    yPad = (height % (yMax * squareDimension)) / (yMax);
   }
 
   return [xMax, xPad, yMax, yPad];
