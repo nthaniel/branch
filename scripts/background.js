@@ -20,13 +20,15 @@ var initializeVars = () => {
   startlength = squareDimension = 100;
   angle = 2 * Math.PI * Math.random();
   linelength = squareDimension / 2;
-  squareWait = 1;
-  wait = 40;
+  squareWait = 3;
+  wait = 30;
   color = '#bdbdbd';
   timeouts = [];
   roots = [];
   branches = [];
-  numSquares = calculateSquares()[0] * calculateSquares()[2];
+  // numSquares = calculateSquares()[0] * calculateSquares()[2];
+  let [numX, , numY] = calculateSquares();
+  numSquares = numX * numY;
 };
 
 initializeVars();
