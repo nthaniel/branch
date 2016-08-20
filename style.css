@@ -40,6 +40,8 @@
 }
 
 .icon {
+  width: 45px;
+  height: 45px;
   opacity: 0.65;
   padding: 0 0.5rem;
   transition: opacity .25s ease-in-out;
