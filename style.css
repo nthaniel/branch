@@ -64,6 +64,11 @@
   padding-bottom: 1rem;
 }
 
+.hint {
+  color: grey;
+  text-align: center;
+}
+
 svg {
   z-index: 0;
 }
@@ -71,4 +76,19 @@ svg {
 #root {
   position: fixed;
   z-index: 0;
+}
+
+@media only screen and (max-width: 30em){
+  h1 {
+    font-size: calc(1rem + 2vw);
+  }
+  h2 {
+    font-size: calc(1rem + 0.8vw);
+  }
+  p {
+    font-size: calc(1rem + 0.4vw);
+  }
+  .hint {
+    display: none;
+  }
 }
