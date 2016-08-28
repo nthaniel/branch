@@ -9,6 +9,5 @@
   "author": "nthaniel",
   "license": "ISC",
   "dependencies": {
-    "svgjs": "^2.2.5"
   }
 }
