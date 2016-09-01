@@ -70,12 +70,15 @@
   text-align: center;
 }
 
-.project a {
+.projects {
   margin-left: 1rem;
+}
+
+.project a {
   font-style: italic;
   text-decoration: none;
   color: black;
-  padding-bottom: 0.2rem;
+  padding-bottom: 0.05rem;
   border-bottom: 1px dotted #505050;
 }
 
@@ -92,7 +95,7 @@ svg {
   z-index: 0;
 }
 
-@media only screen and (max-width: 30em){
+@media only screen and (max-width: 50em){
   h1 {
     font-size: calc(1rem + 2vw);
   }
@@ -100,7 +103,7 @@ svg {
     font-size: calc(1rem + 0.8vw);
   }
   p {
-    font-size: calc(1rem + 0.4vw);
+    font-size: calc(1rem + 0.1vw);
   }
   .hint {
     display: none;
