@@ -12,7 +12,6 @@
   z-index: 1;
 }
 
-
 .paper {
   z-index: 1;
   width: 40%;
@@ -23,8 +22,8 @@
   /*background-image: linear-gradient(to top, rgba(255, 255, 255, 1) 80%, rgba(255, 255, 255, 0.7) 100%);*/
   box-shadow: 0.1rem 0.1rem 0.3rem #BBB;
   top: 0; left: 0; bottom: 0; right: 0;
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 
 .titlebox {
@@ -69,6 +68,17 @@
 .hint {
   color: grey;
   text-align: center;
+}
+
+.project a {
+  margin-left: 1rem;
+  font-style: italic;
+  text-decoration: none;
+  color: #505050;
+}
+
+.project p {
+  color: grey;
 }
 
 svg {
